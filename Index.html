@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <style>
+      h1 {
+        text-align: center;
+        font-size: 55px;
+        color: #333;
+        font-family: 'Arial', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #calculator {
+        height: 500px;
+        width: 400px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        margin: auto;
+        padding: 30px;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f9f9f9;
+        overflow: hidden;
+        border: 10px solid rgba(0, 0, 0, 0.1);
+      }
+
+      #display {
+        height: 60px;
+        width: 100%;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+        margin: auto;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: black;
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-family: 'Courier New', Courier, monospace;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      #keyboard {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 80px);
+        gap: 10px;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      #keyboard > div {
+        box-shadow: rgba(50, 50, 93, 0.15) 0px 6px 12px -2px,
+          rgba(0, 0, 0, 0.2) 0px 3px 7px -3px;
+        border-radius: 10px;
+        font-size: 25px;
+        font-weight: bold;
+        font-family: 'Verdana', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        color: black;
+        transition: background-color 0.3s ease, transform 0.1s ease-in-out;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      #keyboard > div:hover {
+        background-color: lightblue;
+        color: black;
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      #keyboard > div:active {
+        transform: scale(0.9);
+        animation: bounce 0.3s ease;
+      }
+
+      @keyframes bounce {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Calculator📱</h1>
+    <div id="calculator">
+      <div id="display"></div>
+      <div id="keyboard">
+        <div class="number gray">1</div>
+        <div class="number gray">2</div>
+        <div class="number gray">3</div>
+        <div class="operator black">+</div>
+        <div class="number gray">4</div>
+        <div class="number gray">5</div>
+        <div class="number gray">6</div>
+        <div class="operator black">-</div>
+        <div class="number gray">7</div>
+        <div class="number gray">8</div>
+        <div class="number gray">9</div>
+        <div class="operator black">*</div>
+        <div class="clear red">C</div>
+        <div class="number gray">0</div>
+        <div class="equals teal">=</div>
+        <div class="operator black">/</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const numbers = document.querySelectorAll("#keyboard > div");
+    let bag = "";
+    for (let i = 0; i < numbers.length; i++) {
+      numbers[i].addEventListener("click", (event) => {
+        let curvalue = event.target.innerText;
+        if (curvalue == "C") {
+          bag = "";
+          document.querySelector("#display").innerText = "";
+        } else if (curvalue == "=") {
+          try {
+            document.querySelector("#display").innerText = eval(bag);
+          } catch (error) {
+            document.querySelector("#display").innerText = "Error";
+          }
+        } else {
+          bag = bag + curvalue;
+          document.querySelector("#display").innerText = bag;
+        }
+      });
+    }
+  </script>
+</html>
